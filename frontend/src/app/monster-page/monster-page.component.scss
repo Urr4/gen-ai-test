@@ -1,0 +1,39 @@
+.monster-page {
+  width: 100%;
+  display: flex;
+}
+
+.chucky-boy {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+}
+
+.chucky-boy button {
+  background-color: forestgreen;
+  color: white;
+  border: none;
+  height: auto;
+  border-radius: 20px;
+  max-width: 30%;
+}
+
+.chucky-boy button:hover {
+  background-color: darkgreen;
+}
+
+.search-module {
+  flex: 1;
+  flex-direction: column;
+  margin: 20px;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.monster-view {
+  flex:1;
+}

@@ -1,0 +1,23 @@
+<div class="monster-preview-list">
+  <div class="monster-row" *ngFor="let monsterPreview of monsterPreviews" (click)="onMonsterSelected(monsterPreview)">
+    <div class="monster-column">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteMonster(monsterPreview.uuid)">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+      </mat-menu>
+    </div>
+    <p class="monster-name">{{ monsterPreview.name }}</p>
+    <p class="monster-acHp">AC {{ monsterPreview.armorClass }}/HP {{ monsterPreview.hitPoints }}</p>
+    <p class="monster-shortHand">{{ monsterPreview.shortHand }}</p>
+  </div>
+  <mat-paginator [length]="totalNumberOfElements"
+                 [pageSize]="pageSize"
+                 [pageSizeOptions]="pageSizeOptions"
+                 (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

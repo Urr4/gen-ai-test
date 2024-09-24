@@ -1,0 +1,41 @@
+.main {
+  width: 95vw;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  max-height: 15vh;
+}
+
+.header_left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  max-width: 80px;
+  max-height: 80px;
+}
+
+.header_right {
+  display: flex;
+  flex-grow: 2;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 3rem;
+  padding: 20px;
+}
+
+.error {
+  background-color: red;
+  color: white;
+}

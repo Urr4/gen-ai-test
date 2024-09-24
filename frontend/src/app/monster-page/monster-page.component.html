@@ -1,0 +1,24 @@
+<div class="monster-page">
+  <div class="search-module">
+    <div class="chucky-boy">
+      <button mat-raised-button color="primary" (click)="openMonsterCreateDialog()">
+        <p>Generate new Monster</p>
+        <div *ngIf="isLoading" class="loader">
+          <mat-spinner></mat-spinner>
+          <span>Currently generating. I'll tell you when I'm done</span>
+        </div>
+      </button>
+      <app-monster-search-form (filterApplied)="updateFilter($event)"></app-monster-search-form>
+    </div>
+    <app-monster-preview-list [monsterPreviews]="monsterPreviews"
+                              [totalNumberOfElements]="totalNumberOfMatchingMonsters"
+                              (paginationUpdated)="updatePagination($event)"
+                              (monsterSelected)="monsterSelected($event)"
+                              (monsterDeleted)="monsterDeleted()"
+    ></app-monster-preview-list>
+  </div>
+
+  <div class="monster-view">
+    <app-monster-detail-view [monsterId]="currentSelectedMonsterId"></app-monster-detail-view>
+  </div>
+</div>

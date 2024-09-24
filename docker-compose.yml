@@ -1,0 +1,52 @@
+# I'm the main one
+services:
+  neo4j:
+    image: neo4j:community
+    container_name: neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/thisIsLocalSoPasswordsDontMatter
+    ports:
+      - "7474:7474"  # HTTP
+      - "7687:7687"  # bolt
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - neo4j_import:/import
+      - neo4j_plugins:/plugins
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: thisIsLocalSoPasswordsDontMatter
+    ports:
+      - "9000:9000"  # MinIO Console
+      - "9001:9001"  # MinIO Admin Console
+    volumes:
+      - minio_data:/data  # Persistent data storage
+      - minio_config:/root/.minio  # Configuration
+    command: server /data --console-address ":9001"
+
+  backend:
+    image: 08021986/monster-gen-backend:latest
+    depends_on:
+      - neo4j
+      - minio
+    environment:
+      - OPEN_AI_KEY=${OPEN_AI_KEY}
+      - SPRING_NEO4J_URI=bolt://neo4j:7687
+      - MINIO_URL=http://minio:9000
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: 08021986/monster-gen-frontend:latest
+    ports:
+      - "4200:80"
+volumes:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
+  minio_data:
+  minio_config:

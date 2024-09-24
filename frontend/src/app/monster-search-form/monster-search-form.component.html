@@ -1,0 +1,50 @@
+<div *ngIf="!filterForm">
+
+</div>
+<form *ngIf="filterForm" [formGroup]="filterForm!" class="filter-form">
+  <div class="filter-column">
+    <!-- Name Includes -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name Includes</mat-label>
+      <input matInput placeholder="e.g. Goblin" formControlName="nameIncludes">
+    </mat-form-field>
+
+    <!-- Size Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Size</mat-label>
+      <mat-select formControlName="size">
+        <mat-option *ngFor="let size of sizeOptions" [value]="size">{{ size }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Type Dropdown -->
+    <mat-form-field appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option *ngFor="let type of typeOptions" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="filter-column">
+    <!-- Armor Class Range Slider -->
+    <div class="slider-container">
+      <label>Armor Class</label>
+      <mat-slider min="{{selectableArmorClassRange[0]}}" max="{{selectableArmorClassRange[1]}}" discrete>
+        <input matSliderStartThumb formControlName="armorClassFrom">
+        <input matSliderEndThumb formControlName="armorClassTo">
+      </mat-slider>
+    </div>
+
+    <!-- Hitpoint Range Slider -->
+    <div class="slider-container">
+      <label>Hitpoints</label>
+      <mat-slider min="{{selectableHitpointRange[0]}}" max="{{selectableHitpointRange[1]}}" discrete>
+        <input matSliderStartThumb formControlName="hitpointsFrom">
+        <input matSliderEndThumb formControlName="hitpointsTo">
+      </mat-slider>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="applyFilter()">Apply Filter</button>
+  </div>
+</form>

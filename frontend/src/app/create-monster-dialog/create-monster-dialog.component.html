@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Generate new Monster</h1>
+<div mat-dialog-content>
+  <form [formGroup]="createMonsterForm" class="create-monster-form">
+    <div>
+      <mat-form-field appearance="outline" class="monster-prompt">
+        <mat-label>Describe the monster</mat-label>
+        <textarea matInput formControlName="prompt"></textarea>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-checkbox formControlName="generateImage">Should I generate an image too?</mat-checkbox>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="generateMonster()">Generate!</button>
+  <button mat-button (click)="abort()">Abort!</button>
+</div>

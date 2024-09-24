@@ -1,0 +1,61 @@
+.monster-detail-view {
+  margin: 20px;
+  width: 100%;
+}
+
+.full-size-button {
+  height: auto;
+  width: 100%;
+}
+
+.full-size-button button {
+  background-color: forestgreen;
+  color: white;
+  border: none;
+}
+
+.full-size-button button:hover {
+  background-color: darkgreen;
+}
+
+.monster-stats-frame {
+  background-color: rgb(243, 238, 207);
+}
+
+.monster-stats {
+  padding: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.single-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.padded {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sec {
+  padding-bottom: 5px;
+}
+
+.action-row {
+  padding-top: 10px;
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
