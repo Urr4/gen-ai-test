@@ -52,3 +52,6 @@ Using Vector-Indexes would allow to more finely orient the generation on monster
 * [ ] Maybe I add Artifacts, NPCs, Player-Characters and Places too. We'll see...
 * [ ] ???
 * [ ] Profit
+
+## License
+This project is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
