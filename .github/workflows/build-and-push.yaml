@@ -13,22 +13,27 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Generate Docker images
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest ./frontend
-          docker tag ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:${{ github.sha }}
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:latest .
-          docker tag ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:latest ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:${{ github.sha }}
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest
 
-      - name: Push images
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:${{ github.sha }}
+      - name: Build and Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest

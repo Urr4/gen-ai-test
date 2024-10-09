@@ -29,6 +29,7 @@ services:
 
   backend:
     image: 08021986/monster-gen-backend:latest
+    pull_policy: always
     depends_on:
       - neo4j
       - minio
@@ -41,6 +42,7 @@ services:
 
   frontend:
     image: 08021986/monster-gen-frontend:latest
+    pull_policy: always
     ports:
       - "4200:80"
 volumes:
