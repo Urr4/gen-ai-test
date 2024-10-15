@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
-import {MonsterService} from "../monster.service";
+import {CreatureService} from "../creature.service";
 
 @Component({
   selector: 'app-create-image-dialog',
@@ -15,11 +15,11 @@ import {MonsterService} from "../monster.service";
 })
 export class CreateImageDialogComponent {
 
-  constructor(private dialogRef: MatDialogRef<CreateImageDialogComponent>, private monsterService: MonsterService, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private dialogRef: MatDialogRef<CreateImageDialogComponent>, private creatureService: CreatureService, @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   generateImage() {
-    this.dialogRef.close(this.monsterService.generateNewImageForMonsterWithId(this.data.monsterId));
+    this.dialogRef.close(this.creatureService.generateNewImageForCreatureWithId(this.data.creatureId));
   }
 
   abort(){

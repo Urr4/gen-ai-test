@@ -22,18 +22,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push
+      - name: Build and Push frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/monster-gen-frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/pnp-gen-frontend:latest
 
-      - name: Build and Push
+      - name: Build and Push backend
         uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/monster-gen-backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/pnp-gen-backend:latest

@@ -1,7 +1,7 @@
 import {Routes} from '@angular/router';
-import {MonsterPageComponent} from "./monster-page/monster-page.component";
+import {CreaturePageComponent} from "./creature-page/creature-page.component";
 
 export const routes: Routes = [
-  {path: '', component: MonsterPageComponent},
-  {path: 'monsters', component: MonsterPageComponent},
+  {path: '', component: CreaturePageComponent},
+  {path: 'creatures', component: CreaturePageComponent},
 ];

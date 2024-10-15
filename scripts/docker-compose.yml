@@ -1,7 +1,7 @@
 services:
   neo4j:
     image: neo4j:community
-    container_name: neo4j-dev
+    container_name: neo4j-local
     environment:
       - NEO4J_AUTH=neo4j/thisIsLocalSoPasswordsDontMatter
     ports:
@@ -14,7 +14,7 @@ services:
       - neo4j_plugins:/plugins
   minio:
     image: minio/minio:latest
-    container_name: minio-dev
+    container_name: minio-local
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: thisIsLocalSoPasswordsDontMatter

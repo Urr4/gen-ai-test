@@ -1,0 +1,126 @@
+<div *ngIf="!creature">
+  Please select a creature
+</div>
+<div *ngIf="creature" class="creature-detail-view">
+  <div class="creature-stats-frame">
+    <div class="creature-stats">
+      <h2>{{ creature.name }}</h2>
+      <p>{{ creature.size | lowercase }} {{ creature.type | lowercase }}
+        , {{ creature.alignment!.attribute | lowercase }} {{ creature.alignment!.attitude | lowercase }}</p>
+      <mat-divider></mat-divider>
+      <p><b>Armor Class</b> {{ creature.armorClass?.value }} ({{ creature.armorClass?.kindOfArmor }})</p>
+      <p><b>Hit Points</b> {{ creature.hitPoints }}</p>
+      <div class="sec">
+        <span class="bold">Speed </span>
+        <span *ngIf="creature.movementSpeed!.walk!=0">{{ creature.movementSpeed!.walk }} ft., </span>
+        <span *ngIf="creature.movementSpeed!.fly !=0">fly {{ creature.movementSpeed!.walk }} ft., </span>
+        <span *ngIf="creature.movementSpeed!.swim !=0">swim {{ creature.movementSpeed!.swim }} ft.</span>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="stats">
+        <div></div>
+        <div class="single-stat">
+          <p class="bold">STR</p>
+          <p>{{ creature.attributes!.strength }}</p>
+        </div>
+        <div class="single-stat">
+          <p class="bold">DEX</p>
+          <p>{{ creature.attributes!.dexterity }}</p>
+        </div>
+        <div class="single-stat">
+          <p class="bold">CON</p>
+          <p>{{ creature.attributes!.constitution }}</p>
+        </div>
+        <div class="single-stat">
+          <p class="bold">INT</p>
+          <p>{{ creature.attributes!.intelligence }}</p>
+        </div>
+        <div class="single-stat">
+          <p class="bold">WIS</p>
+          <p>{{ creature.attributes!.wisdom }}</p>
+        </div>
+        <div class="single-stat">
+          <p class="bold">CHA</p>
+          <p>{{ creature.attributes!.charisma }}</p>
+        </div>
+        <div></div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="padded">
+        <div class="sec">
+          <span class="bold">Saving Throws </span>
+          <span *ngIf="creature.savingThrowModifiers!.strength">STR {{ creature.savingThrowModifiers?.strength }}, </span>
+          <span *ngIf="creature.savingThrowModifiers!.dexterity">DEX {{ creature.savingThrowModifiers?.dexterity }}
+            , </span>
+          <span
+            *ngIf="creature.savingThrowModifiers!.constitution">CON {{ creature.savingThrowModifiers?.constitution }}
+            , </span>
+          <span
+            *ngIf="creature.savingThrowModifiers!.intelligence">INT {{ creature.savingThrowModifiers?.intelligence }}
+            , </span>
+          <span *ngIf="creature.savingThrowModifiers!.wisdom">WIS {{ creature.savingThrowModifiers?.wisdom }}, </span>
+          <span *ngIf="creature.savingThrowModifiers!.charisma">CHA {{ creature.savingThrowModifiers?.charisma }}</span>
+        </div>
+        <div *ngIf="creature.skills?.length != 0" class="sec">
+          <span class="bold">Skills </span>
+          <span *ngFor="let skill of creature.skills; let isLast = last">{{ skill.name }} {{ skill.modifier }}
+            <span *ngIf="!isLast">, </span>
+        </span>
+        </div>
+        <div *ngIf="creature.damageImmunities?.length != 0" class="sec">
+          <span class="bold">Damage Immunities </span>
+          <span *ngFor="let dmgImmunity of creature.damageImmunities; let isLast = last">{{ dmgImmunity }}
+            <span *ngIf="!isLast">, </span>
+        </span>
+        </div>
+        <div *ngIf="creature.senses?.length != 0" class="sec">
+          <span class="bold">Senses </span>
+          <span *ngFor="let sense of creature.senses; let isLast = last">{{ sense }}
+            <span *ngIf="!isLast">, </span>
+        </span>
+        </div>
+        <div *ngIf="creature.languages?.length != 0" class="sec">
+          <span class="bold">Languages </span>
+          <span *ngFor="let language of creature.languages; let isLast = last">{{ language }}
+            <span *ngIf="!isLast">, </span>
+        </span>
+        </div>
+        <div class="sec">
+          <span class="bold">Challenge </span>
+          <span>{{ creature.challengeRating }}</span>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="characteristic-row" *ngFor="let characteristic of creature.characteristics">
+        <p class="characteristic"><b><i>{{ characteristic.name }}.</i></b> {{ characteristic.description }}</p>
+      </div>
+      <mat-divider></mat-divider>
+      <h3>Actions</h3>
+      <mat-divider></mat-divider>
+      <div class="action-row" *ngFor="let action of creature.actions">
+        <span class="action"><b><i>{{ action.name }}<span *ngIf="action.rechargeOn && action.rechargeOn.toLowerCase() !== 'none'"> (Recharge {{action.rechargeOn}})</span>. </i></b> <i>{{ action.kindOfAttack }}: </i>{{ action.modifierToHit }}
+          to hit, reach {{ action.reach }}, {{action.numberOfTargets}} targets. Hit: </span>
+        <span *ngFor="let damage of action.damages; let isLast=last">{{ damage.diceRoll }} {{ damage.damageType }}
+          <span *ngIf="!isLast">, </span>
+        </span>
+        <span>{{action.description}}</span>
+      </div>
+
+      <div>
+        <h3>Description</h3>
+        {{ creature.creatureDescription }}
+      </div>
+    </div>
+  </div>
+  <app-creature-image-renderer [imageIds]="creature!.imageIds"
+                              (currentlyShowImageId)="updateCurrentImageId($event)"></app-creature-image-renderer>
+  <button mat-raised-button class="full-size-button" color="primary" (click)="openCreateImageDialog()">
+    <p>Generate new image for this creature</p>
+    <div *ngIf="isLoading" class="loader">
+      <span>Currently generating. I'll tell you when I'm done</span>
+    </div>
+  </button>
+  <button *ngIf="currentImageId" mat-raised-button class="full-size-button" color="secondary" (click)="deleteImage()">
+    <p>Remove this image</p>
+  </button>
+</div>

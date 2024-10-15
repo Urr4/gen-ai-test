@@ -1,0 +1,16 @@
+<div *ngIf="imageWrappers.length == 0">
+  No images found
+</div>
+<div *ngIf="imageWrappers.length != 0" class="carousel">
+  <button mat-icon-button (click)="goToPrev()">
+    <mat-icon color="red">arrow_back</mat-icon>
+  </button>
+
+  <div class="carousel-images">
+    <img [src]="imageWrappers[currentIndex].image" alt="Cool generated Image">
+  </div>
+
+  <button mat-icon-button (click)="goToNext()">
+    <mat-icon color="red">arrow_forward</mat-icon>
+  </button>
+</div>

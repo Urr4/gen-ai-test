@@ -1,0 +1,24 @@
+<div class="creature-page">
+  <div class="search-module">
+    <div class="chucky-boy">
+      <button mat-raised-button color="primary" (click)="openCreatureCreateDialog()">
+        <p>Generate new Creature</p>
+        <div *ngIf="isLoading" class="loader">
+          <mat-spinner></mat-spinner>
+          <span>Currently generating. I'll tell you when I'm done</span>
+        </div>
+      </button>
+      <app-creature-search-form (filterApplied)="updateFilter($event)"></app-creature-search-form>
+    </div>
+    <app-creature-preview-list [creaturePreviews]="creaturePreviews"
+                              [totalNumberOfElements]="totalNumberOfMatchingCreatures"
+                              (paginationUpdated)="updatePagination($event)"
+                              (creatureSelected)="creatureSelected($event)"
+                              (creatureDeleted)="creatureDeleted()"
+    ></app-creature-preview-list>
+  </div>
+
+  <div class="creature-view">
+    <app-creature-detail-view [creatureId]="currentSelectedCreatureId"></app-creature-detail-view>
+  </div>
+</div>

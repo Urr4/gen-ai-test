@@ -1,5 +1,5 @@
-# DnD Monster Generator
-This is a simple project for generating homebrewed monsters to be used as inspiration.
+# DnD Generator
+This is a simple project for generating homebrewed monsters and other stuff to be used as inspiration.
 
 ## I want to use this.
 If you are not interested in writing code for this, you can use the application by starting it using Docker and providing an Open-Ai-Key.
@@ -15,7 +15,7 @@ When this is up, you can now reach the application in a browser under `http://lo
 You can develop the application locally, but you will still need OpenAI-Api-Key. Go to [OpenAI](https://platform.openai.com/api-keys), create a new key and export the value to the `OPEN_AI_KEY` environment variable.
 Having that, you can start the spring-boot backend from your IDE.
 You can start the frontend from the `/frontend` folder by running `ng serve`.
-But since monsters get persisted to a Neo4j database, you'll have to have one running.
+But since creatures and stuff get persisted to a Neo4j database, you'll have to have one running.
 You'll also need a Min.io bucket, which you also have to provide, since images get persisted there.
 You can start both by running `docker-compose up` in the `scripts` folder. This docker-compose file is a reduced version of the main one, not having the front- and backend.
 
@@ -38,7 +38,7 @@ This works very well but comes with some minor problems: Sometimes values are no
 
 ## Vector-DB
 I added Neo4j to use it as a Vector-DB, since it provides distance-searching using Vector-Indexes.
-However I currently only persist generated monsters there, I don't use the Vector-Index so far.
+However I currently only persist generated creatures and objects there, I don't use the Vector-Index so far.
 In the future, this would allow implementing an update-process for existing monsters, adding them as "correct" monsters to the DB. 
 Using Vector-Indexes would allow to more finely orient the generation on monsters you like. 
 
